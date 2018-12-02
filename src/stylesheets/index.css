@@ -1,0 +1,109 @@
+#overview{
+  background-color: #fff;
+  min-height: 400px;
+}
+
+.item{
+  height: 300px;
+}
+
+.carousel-control{
+  color: #088C6F;
+  background: none;
+}
+
+.left, .right{
+  background-image: none !important;
+}
+
+#sub-cards{
+  padding: 0;
+}
+
+.partial-wrap{
+  background-color: #fff;
+}
+
+.partial-head{
+  background: #088C6F;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 2px;
+}
+
+.partial-head i{
+  position: relative;
+  float: right;
+  top: -30px;
+  right: 20px;
+  font-size: 1.2em;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+}
+
+.partial-head i:hover{
+  transform: scale(1.5);
+}
+
+.partial-head h5{
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+}
+
+.partial-body{
+  padding: 5% 2%;
+  background: #fff;
+  max-height: 400px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.sub-partial-body{
+  padding: 5% 2%;
+  background: #fff;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+#ledgers{
+  height: auto;
+  max-height: none;
+}
+.partial-body ul{
+  margin: 0;
+  padding: 5px;
+}
+
+.partial-body li{
+  list-style-type: none;
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.partial-body li:hover{
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.partial-body li i{
+  cursor: pointer;
+  font-size: 1.5em;
+  margin: 2px;
+  transition: all 0.2s;
+}
+
+.partial-body li i:hover{
+  transform: scale(1.5);
+}
+
+.inner-row{
+  padding: 0 15px;
+}
+
+.partial-bottom{
+  border-top: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

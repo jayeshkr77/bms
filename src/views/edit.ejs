@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#088C6F">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="stylesheets/universal.css" rel="stylesheet">
+    <link href="stylesheets/addTransaction.css" rel="stylesheet">
+    <link href="stylesheets/animate.min.css" rel="stylesheet">
+    <title>New Transaction - Business Managment System</title>
+  </head>
+
+  <body>
+    <!--Top Bar-->
+    <%- include ../partials/header.ejs %>
+    
+    <!-- Side Bar -->
+    <%- include ../partials/sidebar.ejs %>
+
+    <div class="container" id="content">
+        <div class="col-md-3"></div>
+        <div class="col-xs-12 col-md-6 card animated fadeInLeft">
+          <h3 class="text-center" style="color: #088C6F;"><i class="fa fa-external-link-square"></i> Edit Transaction</h3>
+          <div class="modal-wraper">
+            <form action="/new-transaction", method="POST">
+              
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" class="form-control" placeholder="Date"
+                 name="date" value="" required >
+              </div>
+          
+              <label for="particular">Particular</label>
+              <select class="form-control" id="particular" name="particular" value="<%= data.particular %>">
+                <option value="Goods Sold">Goods Sold</option>
+                <option value="Goods Purchased">Goods Purchased</option>
+                <option value="Cash Recieved">Cash Recieved</option>
+                <option value="Cheque Recieved">Cheque Recieved</option>
+                <option value="Cash Paid">Cash Paid</option>
+                <option value="Cheque Paid">Cheque Paid</option>
+                <option value="Salary Paid">Salary Paid</option>
+                <option value="Cash Drawn">Cash Drawn</option>
+                <option value="Expenses">Expenses</option>
+              </select>
+
+              <div class="form-group" id="type-div">
+                <label for="type">Transaction Type</label>
+                <div class="radio-wraper" id="type-wraper">
+                  <label class="radio-inline">
+                    <input type="radio" name="type" id="type1" value="cash" checked="<% data.type=='cash' %>"/>
+                    Cash Account
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="type" id="type2" value="bank" checked="<% data.type=='cash' %>"/>
+                    Bank Account
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="type" id="type3" value="other" checked="<% data.type=='cash' %>" />
+                    Other
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Narration</label>
+                <input type="text" id="description" placeholder="Description" class="form-control" name="description"
+                 value="<%= data.description %>"/>
+                <small id="descHelp" class="form-text text-muted">*This field is Optional</small>
+              </div>
+              
+
+              <label>Name</label>
+              <input type="text" id="name" placeholder="Name" class="form-control" name="name"
+               value="<%= data.name %>" required />
+
+              <div class="form-group row">
+                <div class="col-xs-6">
+                  <label>Debit Amount:</label>
+                  <input type="number" id="debit" placeholder="Debit Amount" class="form-control" 
+                  style="margin-right:5px" name="debit" value="<%= data.debit %>" required />
+                </div>
+                <div class="col-xs-6">
+                  <label>Credit Amount:</label>
+                  <input type="number" id="credit" placeholder="Credit Amount" class="form-control" 
+                   name="credit" value="<%= data.credit %>" required />
+                </div>
+              </div>
+              <input type="submit" value="Submit" class="btn"/>
+            </form>
+          </div>
+        </div>
+    </div>
+    <br><br>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="controllers/script.js"></script>
+    <script>
+        document.getElementById('date').valueAsDate = new Date();
+
+        $(document).ready(function(){
+
+          $('#debit').keypress(function(){
+            $('#credit').val(0);
+          })
+
+          $('#credit').keypress(function(){
+            $('#debit').val(0);
+          })
+
+          $('#particular').on('change', function(){
+            var val = $(this).val()
+            console.log(val)
+            if(val == 'Goods Sold' || val == 'Goods Purchased'){
+              $('#type-div').show()
+            }
+            else{
+              $('#type-div').hide()
+            }
+            
+          })
+        })
+
+    </script>
+  
+  </body>
+</html>

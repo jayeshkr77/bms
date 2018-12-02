@@ -1,0 +1,38 @@
+.modal-wraper{
+  padding: 5%;
+}
+
+.form-control{
+  margin-bottom: 15px;
+  border-radius: 0;
+}
+
+.form-control:focus{
+  border: 1px solid #088C6F;
+  box-shadow: none;
+}
+
+#description{
+  margin-bottom: 0;
+}
+
+.modal-wraper input[type="submit"]{
+  width: 100%;
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.cross{
+  position: relative;
+  float: right;
+  top: -50px;
+  left: -10px;
+  z-index: 5;
+  cursor: pointer;
+  font-size: 3em !important; 
+}
+
+.radio-wraper{
+  display: flex;
+  justify-content: space-around;
+}

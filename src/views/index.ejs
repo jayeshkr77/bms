@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#088C6F">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="stylesheets/universal.css" rel="stylesheet">
+    <link href="stylesheets/index.css" rel="stylesheet">
+    <link href="stylesheets/animate.min.css" rel="stylesheet">
+    <title>Business Managment System</title>
+  </head>
+
+  <body>
+    <!--Top Bar-->
+    <%- include ../partials/header.ejs %>
+    
+    <!-- Side Bar -->
+    <%- include ../partials/sidebar.ejs %>
+
+    <aside class="container-fluid" id="content">
+      <!-- Overview DIV-->
+      
+      <div class="card container animated slideInLeft" id="overview">
+        <h3 style="color: #088C6F;">Overview</h3>
+        <h4 class="text-center">Cash Flow</h4>
+        <div class="chart-data">
+          <canvas id="chart1" width="900px" height="200px"></canvas>
+        </div>
+        <!--<div id="myCarousel" class="carousel slide" data-ride="carousel">-->
+          <!-- Indicators -->
+          <!--<ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>-->
+        
+          <!-- Wrapper for slides -->
+          <!--<div class="carousel-inner">
+            <div class="item active">
+              <h4 class="text-center">Cash Flow</h4>
+              <div class="chart-data">
+                <canvas id="chart1" width="900px" height="200px"></canvas>
+              </div>
+            </div>
+        
+            <div class="item">
+              <h4 class="text-center">Creditors and Debtors</h4>
+              <div class="chart-data">
+                <canvas id="chart2" width="900px" height="200px"></canvas>
+              </div>
+            </div>
+        
+            <div class="item">
+              <img src="ny.jpg" alt="New York">
+            </div>
+          </div>-->
+        
+          <!-- Left and right controls -->
+          <!--a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>-->
+        
+      </div>
+      <br>
+
+      <!--Partials DIV -->
+      <div class="container" id="sub-cards">
+        <div class="col-xs-12 col-md-6 col-sm-6" style="padding-left: 0"><br><br>
+          <div class="partial-wrap card animated slideInLeft">
+            <div class="partial-head">
+              <h5>Daily Journal</h5>
+              <i class="fa fa-expand"></i>
+            </div>
+
+            <div class="partial-body">
+              <ul>
+                <% for(var i=0;i<daily_journal.length;i++){%>
+                  <% if(daily_journal[i].debit == 0){%>
+                    <li id="<%= daily_journal[i].id %>">
+                      <div class="row">
+                      <div class="col-xs-12 inner-row">
+                        <b><%= daily_journal[i].particular %></b> from 
+                        <b><%= daily_journal[i].name %></b> of <b>&#8377;<%=daily_journal[i].credit%></b>
+                        &nbsp;on <b><%= new Date(daily_journal[i].Date).toDateString() %></b>
+                      </div>
+                      </div>
+                    </li>
+                  <% } 
+                  else{%>
+                    <li id="<%= daily_journal[i].id %>">
+                      <div class="row">
+                      <div class="col-xs-12 inner-row">
+                        <b><%= daily_journal[i].particular %></b> to 
+                        <b><%= daily_journal[i].name %></b> of <b>&#8377;<%=daily_journal[i].debit%></b>
+                        &nbsp;on <b><%= new Date(daily_journal[i].Date).toDateString() %></b>
+                      </div>
+                      </div>
+                    </li>
+                  <%}%>
+                <% } %>
+
+              </ul>
+            </div>
+
+            <div class="partial-bottom"></div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-sm-6" style="padding-right: 0" ><br><br>
+          <div class="partial-wrap card animated slideInDown">
+            <div class="partial-head">
+              <h5>Journal Entry</h5>
+              <i class="fa fa-expand"></i>
+            </div>
+
+            <div class="partial-body">
+              <table class="table table-striped table-hover">
+                <tr>
+                  <th>Date</th>
+                  <th>Particular</th>
+                  <th>Debit</th>
+                  <th>Credit</th>
+                </tr>
+                <% for(var i=0;i<journal_entry.length;i++){ %> 
+                  <tr>
+                    <td><%= new Date(journal_entry[i].date).toDateString() %></td>
+                    <td><%= journal_entry[i].particular %><br>
+                      (<%= journal_entry[i].description %>)
+                    </td>
+                    <td><%= journal_entry[i].debit %></td>
+                    <td><br><%= journal_entry[i].credit %></td>
+                  </tr>
+                <%}%>
+              </table>
+            </div>
+
+            <div class="partial-bottom"></div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-sm-12" style="padding-right: 0;"><br><br>
+          <div class="partial-wrap card animated slideInRight">
+            <div class="partial-head">
+              <h5>Ledgers</h5>
+              <i class="fa fa-expand"></i>
+            </div>
+
+            <div class="partial-body" id="ledgers">
+              <div class="col-xs-12 col-md-4 col-sm-6">
+                
+                <div class="partial-wrap card animated slideInDown">
+                  <div class="partial-head">
+                    <h5>Sales Account</h5>
+                  </div>
+                  <div class="sub-partial-body">
+                    <table class="table table-striped table-hover">
+                      <tr>
+                        <th>Date</th>
+                        <th>Particular</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                      </tr>
+                      <% for(var i=0;i< sales_account.length;i++){ %> 
+                        <tr>
+                          <td><%= new Date(sales_account[i].date).toDateString() %></td>
+                          <td><%= sales_account[i].particular %>
+                          </td>
+                          <td><%= sales_account[i].debit %></td>
+                          <td><%= sales_account[i].credit %></td>
+                        </tr>
+                      <%}%>
+                    </table>
+                  </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-sm-6">
+            
+            <div class="partial-wrap card animated slideInDown">
+              <div class="partial-head">
+                <h5>Purchase Account</h5>
+              </div>
+              <div class="sub-partial-body">
+                <table class="table table-striped table-hover">
+                  <tr>
+                    <th>Date</th>
+                    <th>Particular</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                  </tr>
+                  <% for(var i=0;i< purchase_account.length;i++){ %> 
+                    <tr>
+                      <td><%= new Date(purchase_account[i].date).toDateString() %></td>
+                      <td><%= purchase_account[i].particular %>
+                      </td>
+                      <td><%= purchase_account[i].debit %></td>
+                      <td><%= purchase_account[i].credit %></td>
+                    </tr>
+                  <%}%>
+                </table>
+              </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-4 col-sm-6">
+          
+          <div class="partial-wrap card animated slideInDown">
+            <div class="partial-head">
+              <h5>Bank Account</h5>
+            </div>
+            <div class="sub-partial-body">
+              <table class="table table-striped table-hover">
+                <tr>
+                  <th>Date</th>
+                  <th>Particular</th>
+                  <th>Debit</th>
+                  <th>Credit</th>
+                </tr>
+                <% for(var i=0;i< bank_account.length;i++){ %> 
+                  <tr>
+                    <td><%= new Date(bank_account[i].date).toDateString() %></td>
+                    <td><%= bank_account[i].particular %>
+                    </td>
+                    <td><%= bank_account[i].debit %></td>
+                    <td><%= bank_account[i].credit %></td>
+                  </tr>
+                <%}%>
+              </table>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-md-4 col-sm-6">
+        
+        <div class="partial-wrap card animated slideInDown">
+          <div class="partial-head">
+            <h5>Cash Account</h5>
+          </div>
+          <div class="sub-partial-body">
+            <table class="table table-striped table-hover">
+              <tr>
+                <th>Date</th>
+                <th>Particular</th>
+                <th>Debit</th>
+                <th>Credit</th>
+              </tr>
+              <% for(var i=0;i< cash_account.length;i++){ %> 
+                <tr>
+                  <td><%= new Date(cash_account[i].date).toDateString() %></td>
+                  <td><%= cash_account[i].particular %>
+                  </td>
+                  <td><%= cash_account[i].debit %></td>
+                  <td><%= cash_account[i].credit %></td>
+                </tr>
+              <%}%>
+            </table>
+          </div>
+      </div>
+    </div>
+
+            <div class="partial-bottom"></div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="controllers/script.js"></script>
+    <script src="controllers/ejs.js"></script>
+    <script>
+
+      //Handling Char 1
+      var cashInFlow = <%= cashInFlow %>;
+      var cashOutFlow = <%= cashOutFlow %>;
+
+      var ctx = document.getElementById('chart1').getContext('2d');
+      var chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Cash Inflow', 'Cash Outflow'],
+          datasets:[
+            {
+              data: [cashInFlow, cashOutFlow],
+              backgroundColor: [ "#81AE64", "#CF0A2C"]
+            }
+          ]
+        }
+      });
+
+
+      //Chart Data
+      /*var debtors = <%= debtors %>;
+      var creditors = <%= creditors %>;
+
+      //Handling Chart
+      var ctx = document.getElementById('chart2').getContext('2d');
+      var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['debtors', 'creditors'],
+          datasets: [
+            {
+              data: [debtors, creditors],
+              backgroundColor: ["#CF0A2C", "#81AE64"]
+            }
+          ]
+        },
+        
+      })*/
+
+        $(document).ready(function(){
+  
+          $('.partial-head i').click(function(){
+            var parent = $(this).parent().parent().parent();
+            var heading = $(this).siblings().text();
+            var partialBody = $(this).parent().siblings();
+            console.log(heading)
+            
+            //console.log(list)
+
+
+            if(parent.hasClass('col-md-6 col-sm-6')){
+              $(this).removeClass('fa-expand');
+              $(this).addClass('fa-compress');
+              parent.removeClass('col-md-6 col-sm-6');
+
+              if(heading == 'Daily Journal'){
+                $('.inner-row').removeClass('col-xs-12');
+                $('.inner-row').addClass('col-xs-10');
+
+                $('.inner-row').parent().append(`
+                  <div class="col-xs-2">
+                    <i class="fa fa-pencil" id="editBtn" style="color: #088C6F" onclick='handleEdit(event)'></i>
+                    <i class="fa fa-trash" style="color: #DC4444" onclick='handleDelete(event)'></i>
+                  </div>
+                `)
+              }
+            }
+            else{
+              $(this).removeClass('fa-compress');
+              $(this).addClass('fa-expand');
+              parent.addClass('col-md-6 col-sm-6');
+
+              if(heading == 'Daily Journal'){
+                $('.inner-row').removeClass('col-xs-10');
+                $('.inner-row').addClass('col-xs-12');
+
+                $('.inner-row').siblings().remove()
+              }
+              
+            }
+              
+          })
+        })
+
+        function handleDelete(e){
+          var id = e.target.parentNode.parentNode.parentNode.id;
+
+          $.post('/delete', {id: id}, success => {
+            if(success.err)
+              alert('An Error Occured');
+            else{
+              window.location.href = '/';
+              alert(success.msg);
+            }
+              
+          })
+        }
+
+        function handleEdit(e){
+          var id = e.target.parentNode.parentNode.parentNode.id;
+
+          $.post('/edit', {id: id}, success => {
+            if(success.err)
+              alert('An Error Occured');
+            else{
+              var msg = success.msg
+              window.location.href = '/edit?data='+JSON.stringify(msg);
+            }
+          })
+        }
+        
+      </script>
+  </body>
+</html>

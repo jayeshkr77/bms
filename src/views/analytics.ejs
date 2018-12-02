@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#088C6F">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+    <link href="stylesheets/universal.css" rel="stylesheet">
+    <link href="stylesheets/index.css" rel="stylesheet">
+    <link href="stylesheets/animate.min.css" rel="stylesheet">
+    <title>Business Managment System</title>
+</head>
+
+<body>
+    <!--Top Bar-->
+    <%- include ../partials/header.ejs %>
+
+        <!-- Side Bar -->
+        <%- include ../partials/sidebar.ejs %>
+
+            <aside class="container-fluid" id="content">
+                <!-- Overview DIV-->
+                <% for (x in d) { %>
+                    <div class="card container animated slideInLeft" id="overview">
+                        <h3 style="color: #088C6F;">Overview</h3>
+                        <h4 class="text-center">
+                            <%= x %>
+                        </h4>
+                        <div class="chart-data">
+                            <canvas id=<%= x %> width="900px" height="200px"></canvas>
+                        </div>
+                    </div>
+
+                    <br />
+                    <% } %>
+                        <div style="display:none">
+
+
+
+
+                        </div>
+
+
+                        <!--Partials DIV -->
+
+            </aside>
+
+            <!-- jQuery library -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+            <!-- Latest compiled Bootstrap JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+            <script src="controllers/script.js"></script>
+            <script src="controllers/ejs.js"></script>
+
+            <script>
+
+                var debtors = 30;
+                var creditors = 20;
+                var ctx = document.getElementById('dra_infratech_ac').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Cash Inflow', 'Cash Outflow'],
+                        datasets: [
+                            {
+                                data: [cashInFlow, cashOutFlow],
+                                backgroundColor: ["#81AE64", "#CF0A2C"]
+                            }
+                        ]
+                    }
+                });
+
+            </script>
+</body>
+
+</html>

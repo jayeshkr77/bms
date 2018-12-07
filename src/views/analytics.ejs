@@ -24,28 +24,47 @@
 
             <aside class="container-fluid" id="content">
                 <!-- Overview DIV-->
-                <% for (x in d) { %>
-                    <div class="card container animated slideInLeft" id="overview">
-                        <h3 style="color: #088C6F;">Overview</h3>
-                        <h4 class="text-center">
-                            <%= x %>
-                        </h4>
-                        <div class="chart-data">
-                            <canvas id=<%= x %> width="900px" height="200px"></canvas>
-                        </div>
+                <div class="card container animated slideInLeft" id="overview">
+                    <h3 style="color: #088C6F;">Overview</h3>
+                    <h4 class="text-center">
+                        Dra InfraTech
+                    </h4>
+                    <div class="chart-data">
+                        <canvas id="chart1" width="900px" height="200px"></canvas>
                     </div>
+                </div>
 
-                    <br />
-                    <% } %>
-                        <div style="display:none">
+                <br />
+                <div class="card container animated slideInRight" id="overview">
+                    <h3 style="color: #088C6F;">Overview</h3>
+                    <h4 class="text-center">
+                        Jk InfraTech
+                    </h4>
+                    <div class="chart-data">
+                        <canvas id="chart2" width="900px" height="200px"></canvas>
+                    </div>
+                </div>
+                
+
+                <br />
+                <div class="card container animated slideInLeft" id="overview">
+                    <h3 style="color: #088C6F;">Overview</h3>
+                    <h4 class="text-center">
+                        Lalji Traders
+                    </h4>
+                    <div class="chart-data">
+                        <canvas id="chart3" width="900px" height="200px"></canvas>
+                    </div>
+                </div>
+
+                <br />
 
 
 
+                
 
-                        </div>
 
-
-                        <!--Partials DIV -->
+                <!--Partials DIV -->
 
             </aside>
 
@@ -60,11 +79,81 @@
 
             <script>
 
-                var debtors = 30;
-                var creditors = 20;
-                var ctx = document.getElementById('dra_infratech_ac').getContext('2d');
+                // var debtors = <%= d.dra_infratech_ac.debit %>;
+                // var creditors = <%= d.dra_infratech_ac.debit %>;
+                // var ctx = document.getElementById('chart1').getContext('2d');
+                // var chart = new Chart(ctx, {
+                //     type: 'doughnut',
+                //     data: {
+                //         labels: ['Cash Inflow', 'Cash Outflow'],
+                //         datasets: [
+                //             {
+                //                 data: [cashInFlow, cashOutFlow],
+                //                 backgroundColor: ["#81AE64", "#CF0A2C"]
+                //             }
+                //         ]
+                //     }
+                // });
+
+                // var debtors = <%= d.jk_traders_ac.debit %>;
+                // var creditors = <%= d.jk_traders_ac.debit %>;
+                // var ctx = document.getElementById('chart2').getContext('2d');
+                // var chart = new Chart(ctx, {
+                //     type: 'doughnut',
+                //     data: {
+                //         labels: ['Cash Inflow', 'Cash Outflow'],
+                //         datasets: [
+                //             {
+                //                 data: [cashInFlow, cashOutFlow],
+                //                 backgroundColor: ["#81AE64", "#CF0A2C"]
+                //             }
+                //         ]
+                //     }
+                // });
+
+                var cashInFlow1 = <%= d.dra_infratech_ac.credit %>;
+                var cashOutFlow2 = <%= d.dra_infratech_ac.debit %>;
+
+                var ctx = document.getElementById('chart1').getContext('2d');
                 var chart = new Chart(ctx, {
                     type: 'doughnut',
+                    data: {
+                        labels: ['Cash Inflow', 'Cash Outflow'],
+                        datasets: [
+                            {
+                                data: [cashInFlow1, cashOutFlow2],
+                                backgroundColor: ["#81AE64", "#CF0A2C"]
+                            }
+                        ]
+                    }
+                });
+            </script>
+            <script>
+                var cashInFlow = <%= d.jk_traders_ac.credit %>;
+                var cashOutFlow = <%= d.jk_traders_ac.debit %>;
+
+                var ctx = document.getElementById('chart2').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Cash Inflow', 'Cash Outflow'],
+                        datasets: [
+                            {
+                                data: [cashInFlow, cashOutFlow],
+                                backgroundColor: ["#81AE64", "#CF0A2C"]
+                            }
+                        ]
+                    }
+                });
+
+            </script>
+            <script>
+                var cashInFlow = <%= d.lalji_traders_ac.credit %>;
+                var cashOutFlow = <%= d.lalji_traders_ac.debit %>;
+
+                var ctx = document.getElementById('chart3').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'pie',
                     data: {
                         labels: ['Cash Inflow', 'Cash Outflow'],
                         datasets: [

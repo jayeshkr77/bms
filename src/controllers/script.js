@@ -15,6 +15,10 @@ $(document).ready(function(){
       $('#sidebar ul li').removeClass('selected');
       $(child[1]).addClass('selected');
       break;
+    case '/dashboard':
+      $('#sidebar ul li').removeClass('selected');
+      $(child[2]).addClass('selected');
+
   }
 })
 
@@ -39,6 +43,9 @@ function sideClick(){
       break;
     case 'New Transaction':
       window.location.href='/new-transaction'
+      break;
+    case 'Analytics':
+      window.location.href='/dashboard'
       break;
   }
 }

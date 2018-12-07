@@ -194,7 +194,6 @@ router.get('/dashboard',(req, res) => {
       var pattern = /_ac$/;
 
       if(pattern.test(item.Tables_in_mine)){
-        console.log(item.Tables_in_mine);
         data[item.Tables_in_mine] = [];
         query1 += `select SUM(debit) as debit ,SUM(credit) as credit from ${item.Tables_in_mine};`;  
       }
@@ -210,6 +209,7 @@ router.get('/dashboard',(req, res) => {
       Object.keys(data).forEach((key)=>{
         data[key] =success[i++][0];
       })
+      console.log(data.jk_traders_ac.debit);
       res.render('analytics.ejs', {d : data})
     });
   })//show tables
@@ -218,36 +218,3 @@ router.get('/dashboard',(req, res) => {
 //<!-- end of analytics routes -->
 
 module.exports = router;
-
-// //<!-- for analytics route database function -->
-// const database = async(customers,data,res)=>{
-//   query = `show tables`;
-//   await  db.connector.query(query, (err, success) => {
-//     //console.log(success);
-//     success.forEach(element => {
-//       var pat = /_ac$/;
-//       if (pat.test(element.Tables_in_mine)) {
-//         customers.push(element.Tables_in_mine);
-//       }
-//     });
-//   });
-//   await customers.forEach(c => {
-
-//     query = `select * from ${c}`
-//     db.connector.query(query, (err, success) => {
-//       console.log(success);
-//       var total_debit = 0;
-//       var total_credit = 0;
-//       success.forEach(tuples => {
-//         total_debit += tuples.debit;
-//         total_credit += tuples.credit;
-//       })
-
-//       data[c] = { 'debit': total_debit, 'credit': total_credit }
-//       console.log(data);
-//     })
-//   })
-
-//   return data;
-//   res.render('analytics.ejs', {})
-// }

@@ -199,17 +199,24 @@ router.get('/dashboard',(req, res) => {
       }
 
     }//end of for of item of success
-
+    data['bank_account'] = [];
+    data['cash_account'] = [];
+    data['sales_account'] = [];
+    data['purchase_account'] = [];
+    query1 += `select SUM(debit) as debit ,SUM(credit) as credit from bank_account;`;
+    query1 += `select SUM(debit) as debit ,SUM(credit) as credit from cash_account;`;
+    query1 += `select SUM(debit) as debit ,SUM(credit) as credit from sales_account;`;
+    query1 += `select SUM(debit) as debit ,SUM(credit) as credit from purchase_account;`;    
     //console.log(query1);
     
     await db.connector.query(query1,async(err,success) =>{
       //data[1]=success;
-      //console.log(data[1][0][0].debit);
+      //console.log(success);
       var i=0;
       Object.keys(data).forEach((key)=>{
         data[key] =success[i++][0];
       })
-      console.log(data.jk_traders_ac.debit);
+      console.log(data);
       res.render('analytics.ejs', {d : data})
     });
   })//show tables
